@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,5 +98,22 @@ public class EmployeeController {
 
         return Result.success(pageResult);
     }
+
+    /**
+     * 员工权限开关
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("员工权限启用禁用")
+    public Result startOrStop(@PathVariable Integer status, Long id) {
+        log.info("员工权限开关,id = {},权限:{}", id, status);
+        int rows = employeeService.startOrStop(status, id);
+
+
+        return rows>0?Result.success():Result.error("0条更新");
+    }
+
 
 }

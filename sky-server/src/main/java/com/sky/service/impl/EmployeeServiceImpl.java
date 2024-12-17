@@ -112,4 +112,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return pageResult;
     }
+
+
+    /**
+     * 员工权限开关
+     * @param status
+     * @param id
+     * @return
+     */
+    public int startOrStop(Integer status, Long id) {
+        //封装成实体类
+        Employee emp = Employee.builder()
+                .id(id)
+                .status(status)
+                .build();
+        //调用Mapper
+        int rows = employeeMapper.update(emp);
+        return rows;
+    }
+
 }
