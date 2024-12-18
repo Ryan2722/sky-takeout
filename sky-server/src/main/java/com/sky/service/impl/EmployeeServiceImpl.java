@@ -131,4 +131,31 @@ public class EmployeeServiceImpl implements EmployeeService {
         return rows;
     }
 
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
+    public Employee getById(Long id) {
+        Employee emp = employeeMapper.select(id);
+        emp.setPassword("****");
+        return emp;
+    }
+
+    /**
+     * 更新员工信息
+     * @param empDTO
+     */
+    public Integer update(EmployeeDTO empDTO) {
+        Employee emp = Employee.builder()
+                .id(empDTO.getId())
+                .idNumber(empDTO.getIdNumber())
+                .name(empDTO.getName())
+                .phone(empDTO.getPhone())
+                .sex(empDTO.getSex())
+                .username(empDTO.getUsername())
+                .build();
+        Integer i = employeeMapper.update(emp);
+        return i;
+    }
 }

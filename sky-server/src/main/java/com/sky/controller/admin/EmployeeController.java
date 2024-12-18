@@ -9,6 +9,7 @@ import com.sky.properties.JwtProperties;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.EmployeeService;
+import com.sky.service.impl.EmployeeServiceImpl;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +33,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
     @Autowired
     private JwtProperties jwtProperties;
+    @Autowired
+    private EmployeeServiceImpl employeeServiceImpl;
 
     /**
      * 登录
@@ -111,9 +114,31 @@ public class EmployeeController {
         log.info("员工权限开关,id = {},权限:{}", id, status);
         int rows = employeeService.startOrStop(status, id);
 
-
         return rows>0?Result.success():Result.error("0条更新");
     }
 
+
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询员工信息")
+    public Result<Employee> getById(@PathVariable Long id) {
+        log.info("查询id为{}的员工",id);
+        Employee emp = employeeService.getById(id);
+        return Result.success(emp);
+    }
+
+    @PutMapping
+    @ApiOperation("更新员工信息")
+    public Result update(@RequestBody EmployeeDTO empDTO) {
+        log.info("更新id为{}的员工信息",empDTO.getId());
+
+        Integer i = employeeService.update(empDTO);
+
+        return i > 0?Result.success():Result.error("更新失败");
+    }
 
 }
