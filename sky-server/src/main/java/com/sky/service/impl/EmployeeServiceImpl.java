@@ -79,13 +79,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         //设置剩余属性
         employee.setStatus(StatusConstant.ENABLE);  //默认状态：启用
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));//默认密码
+/*
         employee.setCreateTime(LocalDateTime.now());
         employee.setUpdateTime(LocalDateTime.now());
-
         //设置创建人和更新人id
         //todo 这里要改成动态获取id
         employee.setCreateUser(BaseContext.getCurrentId());
         employee.setUpdateUser(BaseContext.getCurrentId());
+*/
 
         employeeMapper.insert(employee);
     }
