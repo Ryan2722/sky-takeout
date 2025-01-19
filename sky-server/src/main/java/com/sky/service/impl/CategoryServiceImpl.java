@@ -126,7 +126,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
-     * 根据类型查询分类
+     * 根据类型(套餐分类还是菜品的分类)查询分类
      * @param type
      * @return
      */
